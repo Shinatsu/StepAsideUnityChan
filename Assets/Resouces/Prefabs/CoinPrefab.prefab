@@ -20,7 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4128433406146356}
   - component: {fileID: 65229959669336776}
+  - component: {fileID: 23047216307291904}
   - component: {fileID: 114085162686180320}
+  - component: {fileID: 114751930576980706}
   m_Layer: 0
   m_Name: CoinPrefab
   m_TagString: CoinTag
@@ -134,6 +136,38 @@ Transform:
   m_Father: {fileID: 4128433406146356}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23047216307291904
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322689826143924}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23527216124359532
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -274,3 +308,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb83e5afbb08422e84788f26dd8c6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114751930576980706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322689826143924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd0ca15a98714c1b9142d8b242fe60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDestroyWhenInvisible: 1
