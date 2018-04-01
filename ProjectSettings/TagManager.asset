@@ -9,6 +9,7 @@ TagManager:
   - CoinTag
   - GoalTag
   - UnityChan
+  - RoadTag
   layers:
   - Default
   - TransparentFX

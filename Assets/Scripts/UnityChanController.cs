@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UnityChanController : MonoBehaviour {
     //アニメーションするためのコンポーネントを入れる
@@ -17,6 +18,12 @@ public class UnityChanController : MonoBehaviour {
     private float movableRange = 3.4f;
     //動きを減速させる係数（追加）
     private float coefficient = 0.95f;
+
+    [SerializeField]
+    private GameObject seCoin;
+
+    [SerializeField]
+    private GameObject seHit;
 
     //ゲーム終了の判定（追加）
     private bool isEnd = false;
@@ -61,6 +68,15 @@ public class UnityChanController : MonoBehaviour {
             this.turnForce *= this.coefficient;
             this.upForce *= this.coefficient;
             this.myAnimator.speed *= this.coefficient;
+
+            StartCoroutine (Restart());
+        }
+
+        // ジャンプ状態のときにはボリュームを0にする（追加）
+        if (this.myAnimator.GetCurrentAnimatorStateInfo (0).IsName ("Jump")) {
+            GetComponent<AudioSource> ().volume = 0;
+        } else {
+            GetComponent<AudioSource> ().volume = 1;
         }
 
         //Unityちゃんに前方向の力を加える（追加）
@@ -81,7 +97,7 @@ public class UnityChanController : MonoBehaviour {
         }
 
         //ジャンプしていない時にスペースが押されたらジャンプする（追加）
-        if (Input.GetKeyDown(KeyCode.Space) && this.transform.position.y < 0.5f) {
+        if (Input.GetKeyDown (KeyCode.Space) && this.transform.position.y < 0.5f) {
             //ジャンプアニメを再生（追加）
             this.myAnimator.SetBool ("Jump", true);
             //Unityちゃんに上方向の力を加える（追加）
@@ -94,6 +110,9 @@ public class UnityChanController : MonoBehaviour {
 
         //障害物に衝突した場合（追加）
         if (other.gameObject.tag == "CarTag" || other.gameObject.tag == "TrafficConeTag") {
+            
+            this.seHit.GetComponent<AudioSource> ().Play ();
+
             this.isEnd = true;
             //stateTextにGAME OVERを表示（追加）
             this.stateText.GetComponent<Text>().text = "GAME OVER";
@@ -101,6 +120,10 @@ public class UnityChanController : MonoBehaviour {
 
         //ゴール地点に到達した場合（追加）
         if (other.gameObject.tag == "GoalTag") {
+
+            if (this.isEnd)
+                return;
+            
             this.isEnd = true;
             //stateTextにGAME CLEARを表示（追加）
             this.stateText.GetComponent<Text>().text = "CLEAR!!";
@@ -108,6 +131,8 @@ public class UnityChanController : MonoBehaviour {
 
         //コインに衝突した場合（追加）
         if (other.gameObject.tag == "CoinTag") {
+
+            this.seCoin.GetComponent<AudioSource> ().Play ();
 
             // スコアを加算(追加)
             this.score += 10;
@@ -147,5 +172,12 @@ public class UnityChanController : MonoBehaviour {
     //右ボタンを離した場合の処理（追加）
     public void GetMyRightButtonUp() {
         this.isRButtonDown = false;
+    }
+
+    IEnumerator Restart()
+    {
+        yield return new WaitForSeconds (2.0f);
+
+        SceneManager.LoadScene ("GameScene");
     }
 }
